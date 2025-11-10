@@ -27,16 +27,20 @@ export default function TaskEditDialog({ task, onClose, onSave }) {
   if (!task && !onSave) return null;
 
   const handleSave = () => {
-    if (!form.title || form.title.trim() === "") return alert("Title required");
+    if (!form.title || form.title.trim() === "") {
+      alert("Title required");
+      return;
+    }
     const revenue = Number(form.revenue);
     const timeTaken = Number(form.timeTaken);
-    if (isNaN(revenue) || isNaN(timeTaken))
-      return alert("Revenue and Time must be numbers");
+    if (isNaN(revenue) || isNaN(timeTaken)) {
+      alert("Revenue and Time must be numbers");
+      return;
+    }
     const roi = computeROI(revenue, timeTaken);
-
     onSave({
       ...task,
-      title: form.title,
+      title: form.title.trim(),
       notes: form.notes,
       revenue,
       timeTaken,
@@ -45,7 +49,7 @@ export default function TaskEditDialog({ task, onClose, onSave }) {
       status: form.status,
     });
   };
-
+  
   return (
     <div
       style={{

@@ -1,13 +1,21 @@
+
 /**
- * utils: ROI safe calculation, stable sort comparator
+ * Compute ROI safely on the frontend.
+ * Returns:
+ *   - number (2-decimals) if valid
+ *   - 0 if timeTaken <= 0
+ *   - null if invalid inputs
  */
 export function computeROI(revenue, timeTaken) {
-    const r = Number(revenue);
-    const t = Number(timeTaken);
-    if (isNaN(r) || isNaN(t)) return null;
-    if (t === 0) return 0;
-    const roi = r / t;
-    return Number(roi.toFixed(2));
+  const r = Number(revenue);
+  const t = Number(timeTaken);
+  
+  if (isNaN(r) || isNaN(t)) return null;
+  if (t <= 0) return 0;
+
+  const roi = r / t;
+  if (!isFinite(roi)) return 0;
+  return Number(roi.toFixed(2));         
 }
 
 /**

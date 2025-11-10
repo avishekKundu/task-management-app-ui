@@ -7,6 +7,7 @@ export default function TaskRow({ task, onView, onEdit, onDelete }) {
       style={{
         display: "flex",
         justifyContent: "space-between",
+        alignItems: "center",
         padding: 12,
         borderBottom: "1px solid #eee",
         cursor: "pointer",
@@ -15,7 +16,7 @@ export default function TaskRow({ task, onView, onEdit, onDelete }) {
       <div>
         <div style={{ fontWeight: 600 }}>{task.title}</div>
         <div style={{ fontSize: 12, color: "#666" }}>
-          ROI: {task.roi === null ? "—" : Number(task.roi).toFixed(2)}
+          ROI: {task.roi == null ? "—" : Number(task.roi).toFixed(2)}
         </div>
       </div>
       <div>

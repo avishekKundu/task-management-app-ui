@@ -35,15 +35,32 @@ function App() {
     }
   };
 
-  const handleView = (task) => setSelected(task);
+  const closeAllDialogs = () => {
+    setSelected(null);
+    setEditing(null);
+    setDeleting(null);
+  };
+
+  const handleView = (task) => {
+    closeAllDialogs();
+    setSelected(task);
+  }
 
   const handleCreate = () => {
     setEditing({ title: '', notes: '', revenue: 0, timeTaken: 0, priority: 'MEDIUM', status: 'TODO' });
   };
 
-  const handleEdit = (task) => setEditing(task);
+  const handleEdit = (task) => {
+    closeAllDialogs();
+    setEditing(task);
+  }
 
-  const handleDelete = (task) => setDeleting(task);
+  const handleDelete = (task) => {
+    closeAllDialogs();
+    setDeleting(task);
+  }
+
+  const handleCloseDialogs = () => closeAllDialogs();
 
   const confirmDelete = async (task) => {
     try {
@@ -126,15 +143,24 @@ function App() {
         <button onClick={load} style={{ marginLeft: 8 }}>Reload</button>
       </div>
       <TaskList tasks={tasks} onView={handleView} onEdit={handleEdit} onDelete={handleDelete} />
-      <TaskViewDialog task={selected} onClose={() => setSelected(null)} />
+      {selected && (
+        <TaskViewDialog
+          task={selected}
+          onClose={handleCloseDialogs} />
+      )}
       {editing && (
         <TaskEditDialog
           task={editing}
-          onClose={() => setEditing(null)}
+          onClose={handleCloseDialogs}
           onSave={handleSave}
         />
       )}
-      <ConfirmDeleteDialog task={deleting} onConfirm={confirmDelete} onClose={() => setDeleting(null)} />
+      {deleting && (
+        <ConfirmDeleteDialog
+          task={deleting}
+          onConfirm={confirmDelete}
+          onClose={handleCloseDialogs} />
+      )}
       <SnackbarUndo open={snackOpen} message={`Deleted "${lastDeleted?.title || ''}"`} onClose={onSnackClose} onUndo={handleUndo} />
     </div>
   );
