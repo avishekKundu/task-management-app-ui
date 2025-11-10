@@ -47,7 +47,7 @@ function App() {
   }
 
   const handleCreate = () => {
-    setEditing({ title: '', notes: '', revenue: 0, timeTaken: 0, priority: 'MEDIUM', status: 'TODO' });
+    setEditing({ title: '', notes: '', revenue: null, timeTaken: null, priority: 'MEDIUM', status: 'TODO' });
   };
 
   const handleEdit = (task) => {
