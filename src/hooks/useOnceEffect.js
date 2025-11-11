@@ -10,5 +10,6 @@ export default function useOnceEffect(effect) {
         if (ran.current) return;
         ran.current = true;
         return effect();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 }
